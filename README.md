@@ -1,4 +1,4 @@
-## SilverStripe Data Reference
+## SilverStripe Data Progress
 
 [![Latest Stable Version](https://poser.pugx.org/hudhaifas/silverstripe-data-progress/v/stable)](https://packagist.org/packages/hudhaifas/silverstripe-data-progress) [![Total Downloads](https://poser.pugx.org/hudhaifas/silverstripe-data-progress/downloads)](https://packagist.org/packages/hudhaifas/silverstripe-data-progress) [![Latest Unstable Version](https://poser.pugx.org/hudhaifas/silverstripe-data-progress/v/unstable)](https://packagist.org/packages/hudhaifas/silverstripe-data-progress) [![License](https://poser.pugx.org/hudhaifas/silverstripe-data-progress/license)](https://packagist.org/packages/hudhaifas/silverstripe-data-progress)
 
