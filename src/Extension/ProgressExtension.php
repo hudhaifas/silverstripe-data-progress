@@ -9,5 +9,20 @@ use SilverStripe\ORM\DataExtension;
  */
 class ProgressExtension
         extends DataExtension {
-    
+
+    public function getProgress() {
+        $fields = $this->owner->config()->get('progress_fields');
+        if (!$fields) {
+            return 100;
+        }
+
+        $num = count($fields);
+        $labels = $this->fieldLabels();
+        $count = 0;
+
+        foreach ($fields as $name => $specOrName) {
+            var_dump($name . ' -- ' . $specOrName);
+        }
+    }
+
 }
