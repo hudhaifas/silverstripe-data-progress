@@ -1,3 +1,7 @@
 ---
 Name: data-progress
 ---
+
+SilverStripe\ORM\DataObject:
+  extensions:
+    - ProgressExtension
