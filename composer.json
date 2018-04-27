@@ -1,0 +1,27 @@
+{
+    "name": "hudhaifas/silverstripe-data-progress",
+    "description": "Show the progress of the data completion.",
+    "type": "silverstripe-vendormodule",
+    "homepage": "https://github.com/hudhaifas/silverstripe-data-progress",
+    "keywords": ["silverstripe", "dataobject", "fields", "complete", "progress"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hudhaifa Shatnawi",
+            "email": "me@hudhaifa.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/hudhaifas/silverstripe-data-progress/issues"
+    },
+    "require": {
+        "silverstripe/framework": "^4",
+        "silverstripe/cms": "^4",
+        "silverstripe/vendor-plugin": "^1.0"
+    },
+    "extra": {
+        "installer-name": "data-progress",
+        "expose": [
+        ]
+    }
+}
