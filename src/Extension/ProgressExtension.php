@@ -47,9 +47,13 @@ class ProgressExtension
     }
 
     public function getProgressBar() {
-        return $this->owner
-                        ->customise($this->getProgress())
-                        ->renderWith('Includes/Progress');
+        $data = $this->getProgress();
+     
+        if ($data) {
+            return $this->owner
+                            ->customise($data)
+                            ->renderWith('Includes/Progress');
+        }
     }
 
     public function getImportantItems() {
