@@ -1,4 +1,3 @@
-<!-- Turquoise -->
 <div class="progress" style="height: 5px">
     <div class="progress-bar bg-info" style="height: 5px" data-progress="{$Percentage}"></div>
 </div>
