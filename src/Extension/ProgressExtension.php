@@ -46,9 +46,17 @@ class ProgressExtension
         return self::cache_name_check($this->owner->ClassName, $this->owner->ID, $result);
     }
 
+    public function IsCompleted() {
+        $data = $this->getProgress();
+
+        if ($data && $data['IsCompleted']) {
+            return true;
+        }
+    }
+
     public function getProgressBar() {
         $data = $this->getProgress();
-     
+
         if ($data) {
             return $this->owner
                             ->customise($data)
