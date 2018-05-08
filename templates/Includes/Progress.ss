@@ -1,10 +1,10 @@
 <div class="progress" style="height: 5px">
-    <div class="progress-bar bg-info" style="height: 5px" data-progress="{$Percentage}"></div>
+    <div id="{$ObjectID}" class="progress-bar bg-info" style="height: 5px" data-progress="{$Percentage}"></div>
 </div>
 
 <script>
     $(document).ready(function () {
-        var progressBar = $('.progress-bar');
+        var progressBar = $('#{$ObjectID}');
         var target = progressBar.data('progress');
         var current = 0;
 
@@ -16,7 +16,7 @@
             }
 
             progressBar.width(current + "%");
-//            progressBar.text(current + "%");
+            //            progressBar.text(current + "%");
         }, 20);
     });
 </script>

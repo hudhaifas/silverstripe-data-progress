@@ -27,15 +27,16 @@ class ProgressExtension
         $total = count($fields);
         $done = 0;
         $incomplete = [];
-        foreach ($fields as $name => $specOrName) {
-            if ($this->owner->$name) {
-                $done++;
+        foreach ($fields as $fieldName => $specOrName) {
+            if ($this->IsNotCompletedField($fieldName, $specOrName)) {
+                $incomplete[] = $fieldName;
             } else {
-                $incomplete[] = $name;
+                $done++;
             }
         }
 
         $result = [
+            "ObjectID" => "id{$this->owner->ID}",
             "Done" => $done,
             "Total" => $total,
             "Percentage" => ($done / $total) * 100,
@@ -67,10 +68,10 @@ class ProgressExtension
     public function getImportantItems() {
         $items = [];
 
-        foreach ($this->getImportantFields() as $fieldName) {
-            if (!$this->owner->$fieldName) {
-                $fieldObject = $this->owner->dbObject($fieldName)->scaffoldFormField(null);
-
+        foreach ($this->getImportantFields() as $fieldName => $specOrName) {
+            if ($this->IsNotCompletedField($fieldName, $specOrName)) {
+                $fieldObject = new $specOrName($fieldName);
+//
                 // Allow fields to opt-out of scaffolding
                 if (!$fieldObject) {
                     continue;
@@ -101,6 +102,18 @@ class ProgressExtension
             $fields[$key] = $value;
         }
         return $fields;
+    }
+
+    private function IsNotCompletedField($fieldName, $specOrName) {
+        $dbObject = $this->owner->dbObject($fieldName);
+        if ($dbObject && !$dbObject->exists()) {
+            return true;
+        }
+
+        $relObject = $this->owner->relObject($fieldName);
+        if ($relObject && !$relObject->exists()) {
+            return true;
+        }
     }
 
     //////// Cache //////// 
