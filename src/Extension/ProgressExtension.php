@@ -11,9 +11,10 @@ class ProgressExtension
         extends DataExtension {
 
     protected static $cache_progress = [];
+    protected static $cache_fields = [];
 
     public function getProgress() {
-        $cachedProgress = self::cache_name_check($this->owner->ClassName, $this->owner->ID);
+        $cachedProgress = self::cache_progress_check($this->owner->ClassName, $this->owner->ID);
         if (isset($cachedProgress)) {
             return $cachedProgress;
         }
@@ -44,13 +45,13 @@ class ProgressExtension
             "IsCompleted" => ($done == $total),
         ];
 
-        return self::cache_name_check($this->owner->ClassName, $this->owner->ID, $result);
+        return self::cache_progress_check($this->owner->ClassName, $this->owner->ID, $result);
     }
 
-    public function IsCompleted() {
+    public function IsNotCompleted() {
         $data = $this->getProgress();
 
-        if ($data && $data['IsCompleted']) {
+        if ($data && !$data['IsCompleted']) {
             return true;
         }
     }
@@ -67,8 +68,13 @@ class ProgressExtension
 
     public function getImportantItems() {
         $items = [];
+        $fields = $this->getImportantFields();
 
-        foreach ($this->getImportantFields() as $fieldName => $specOrName) {
+        if (!$fields) {
+            return;
+        }
+
+        foreach ($fields as $fieldName => $specOrName) {
             if ($this->IsNotCompletedField($fieldName, $specOrName)) {
                 $fieldObject = new $specOrName($fieldName);
 //
@@ -88,6 +94,11 @@ class ProgressExtension
     }
 
     private function getImportantFields() {
+        $cachedFields = self::cache_fields_check($this->owner->ClassName, $this->owner->ID);
+        if (isset($cachedFields)) {
+            return $cachedFields;
+        }
+
         $rawFields = $this->owner->config()->get('progress_fields');
         if (!$rawFields) {
             return;
@@ -101,7 +112,8 @@ class ProgressExtension
             }
             $fields[$key] = $value;
         }
-        return $fields;
+
+        return self::cache_fields_check($this->owner->ClassName, $this->owner->ID, $fields);
     }
 
     private function IsNotCompletedField($fieldName, $specOrName) {
@@ -117,7 +129,7 @@ class ProgressExtension
     }
 
     //////// Cache //////// 
-    public static function cache_name_check($className, $objectID, $result = null) {
+    public static function cache_progress_check($className, $objectID, $result = null) {
         // This is the name used on the permission cache
         // converts something like 'CanEditType' to 'canedittype'.
         $cacheKey = "$className-$objectID";
@@ -130,6 +142,21 @@ class ProgressExtension
         self::$cache_progress[$cacheKey] = $result;
 
         return self::$cache_progress[$cacheKey];
+    }
+
+    public static function cache_fields_check($className, $objectID, $result = null) {
+        // This is the name used on the permission cache
+        // converts something like 'CanEditType' to 'canedittype'.
+        $cacheKey = "$className-$objectID";
+
+        if (isset(self::$cache_fields[$cacheKey])) {
+            $cachedValues = self::$cache_fields[$cacheKey];
+            return $cachedValues;
+        }
+
+        self::$cache_fields[$cacheKey] = $result;
+
+        return self::$cache_fields[$cacheKey];
     }
 
 }
