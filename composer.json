@@ -15,9 +15,9 @@
         "issues": "https://github.com/hudhaifas/silverstripe-data-progress/issues"
     },
     "require": {
-        "silverstripe/framework": "^4",
-        "silverstripe/cms": "^4",
-        "silverstripe/vendor-plugin": "^1.0"
+        "silverstripe/framework": "^5",
+        "silverstripe/cms": "^5",
+        "silverstripe/vendor-plugin": "~2.0.1@stable"
     },
     "extra": {
         "installer-name": "data-progress",

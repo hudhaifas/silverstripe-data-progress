@@ -77,7 +77,7 @@ class ProgressExtension
         foreach ($fields as $fieldName => $specOrName) {
             if ($this->IsNotCompletedField($fieldName, $specOrName)) {
                 $fieldObject = new $specOrName($fieldName);
-//
+
                 // Allow fields to opt-out of scaffolding
                 if (!$fieldObject) {
                     continue;
