@@ -1,6 +1,6 @@
 <?php
 
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 
 /**
  *
@@ -8,7 +8,7 @@ use SilverStripe\ORM\DataExtension;
  * @version 1.0, Apr 27, 2018 - 10:27:12 AM
  */
 class ProgressExtension
-        extends DataExtension {
+        extends Extension {
 
     protected static $cache_progress = [];
     protected static $cache_fields = [];
